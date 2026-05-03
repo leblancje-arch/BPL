@@ -578,8 +578,10 @@ function initCountdown(schedule) {
   const today=new Date(); today.setHours(0,0,0,0);
   const nextStr=schedule.map(m=>m.date).filter(Boolean).sort().find(d=>new Date(d+'T00:00:00')>=today);
   if(!nextStr){
-    document.getElementById('countdown-deadline').textContent='Season complete';
-    document.getElementById('countdown-blocks').innerHTML='<span style="font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:2px;color:var(--gold)">FT</span>';
+    const dl = document.getElementById('countdown-deadline');
+    const cb = document.getElementById('countdown-blocks');
+    if(dl) dl.textContent='Season complete';
+    if(cb) cb.innerHTML='<span style="font-family:\'Bebas Neue\',sans-serif;font-size:18px;letter-spacing:2px;color:var(--gold)">FT</span>';
     return;
   }
   const dl=new Date(nextStr+'T23:59:59');
