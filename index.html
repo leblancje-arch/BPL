@@ -645,8 +645,14 @@ async function loadData() {
     try {
       const PROXY = 'https://corsproxy.io/?';
       const [rRes,sRes]=await Promise.all([fetch(PROXY+encodeURIComponent(CONFIG.RESULTS_CSV_URL)),fetch(PROXY+encodeURIComponent(CONFIG.SCHEDULE_CSV_URL))]);
-      results=parseResults(parseCSV(await rRes.text()));
-      schedule=parseSchedule(parseCSV(await sRes.text()));
+      const rText = await rRes.text();
+      const sText = await sRes.text();
+      console.log('Results CSV:', rText.slice(0,200));
+      console.log('Schedule CSV:', sText.slice(0,200));
+      results=parseResults(parseCSV(rText));
+      schedule=parseSchedule(parseCSV(sText));
+      console.log('Parsed results:', results);
+      console.log('Parsed schedule:', schedule);
       document.getElementById('last-updated').textContent='Updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
     } catch(e){
       console.error(e);
