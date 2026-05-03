@@ -641,7 +641,8 @@ async function loadData() {
     document.getElementById('last-updated').textContent='Demo mode — add your CSV URLs to go live';
   } else {
     try {
-      const [rRes,sRes]=await Promise.all([fetch(CONFIG.RESULTS_CSV_URL),fetch(CONFIG.SCHEDULE_CSV_URL)]);
+      const PROXY = 'https://corsproxy.io/?';
+      const [rRes,sRes]=await Promise.all([fetch(PROXY+encodeURIComponent(CONFIG.RESULTS_CSV_URL)),fetch(PROXY+encodeURIComponent(CONFIG.SCHEDULE_CSV_URL))]);
       results=parseResults(parseCSV(await rRes.text()));
       schedule=parseSchedule(parseCSV(await sRes.text()));
       document.getElementById('last-updated').textContent='Updated '+new Date().toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
