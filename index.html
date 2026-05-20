@@ -318,7 +318,6 @@ const CONFIG = {
   RESULTS_CSV_URL:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkjErhWUjVLzCRe9a2gSbZClBmbnWC6O3vV4UmmRK_XvTURiIRNLXeMP0wkWcO3vgMszUxHoyLZr8W/pub?gid=1914394999&single=true&output=csv',
   SCHEDULE_CSV_URL: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQkjErhWUjVLzCRe9a2gSbZClBmbnWC6O3vV4UmmRK_XvTURiIRNLXeMP0wkWcO3vgMszUxHoyLZr8W/pub?gid=678376947&single=true&output=csv',
   START_ELO: 1500, K: 32,
-  MARGIN: [1.5, 1.3, 1.15, 1.0, 0.85],
   USE_DEMO: false
 };
 
@@ -375,7 +374,9 @@ function calcELO(results) {
     if (elo[m.winner]===undefined||elo[m.loser]===undefined) return;
     const eW=elo[m.winner], eL=elo[m.loser];
     const exp=1/(1+Math.pow(10,(eL-eW)/400));
-    const kEff=CONFIG.K*CONFIG.MARGIN[Math.min(parseInt(m.lPts)||0,4)];
+    const wPts=parseInt(m.wPts)||7, lPts=parseInt(m.lPts)||0;
+    const margin=(wPts-lPts)/(wPts+lPts);
+    const kEff=CONFIG.K*(1+margin);
     elo[m.winner]=Math.round(eW+kEff*(1-exp));
     elo[m.loser] =Math.round(eL+kEff*(0-exp));
     wins[m.winner]=(wins[m.winner]||0)+1;
