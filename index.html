@@ -847,7 +847,7 @@ async function loadData() {
     document.getElementById('last-updated').textContent='Demo mode — add your CSV URLs to go live';
   } else {
     try {
-      const PROXY='https://corsproxy.io/?';
+      const PROXY='https://api.allorigins.win/raw?url=';
       const [rRes,sRes,fRes]=await Promise.all([
         fetch(PROXY+encodeURIComponent(CONFIG.RESULTS_CSV_URL)),
         fetch(PROXY+encodeURIComponent(CONFIG.SCHEDULE_CSV_URL)),
