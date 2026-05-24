@@ -847,12 +847,11 @@ async function loadData() {
     document.getElementById('last-updated').textContent='Demo mode — add your CSV URLs to go live';
   } else {
     try {
-      const PROXY='https://corsproxy.io/?url=';
       const [rRes,sRes,fRes]=await Promise.all([
-        fetch(PROXY+encodeURIComponent(CONFIG.RESULTS_CSV_URL)),
-        fetch(PROXY+encodeURIComponent(CONFIG.SCHEDULE_CSV_URL)),
+  fetch(CONFIG.RESULTS_CSV_URL),
+  fetch(CONFIG.SCHEDULE_CSV_URL),
         CONFIG.FRIENDLIES_CSV_URL!=='YOUR_FRIENDLIES_SHEET_CSV_URL_HERE'
-          ? fetch(PROXY+encodeURIComponent(CONFIG.FRIENDLIES_CSV_URL))
+          fetch(CONFIG.FRIENDLIES_CSV_URL)
           : Promise.resolve(null)
       ]);
       results=parseResults(parseCSV(await rRes.text()));
