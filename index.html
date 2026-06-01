@@ -585,9 +585,9 @@ function renderResults(results) {
     const fmt=new Date(r.date+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
     return `<div class="result-card">
       <span class="result-date">${fmt}</span>
-      <span class="result-winner">${r.winner}</span>
-      <span class="result-score">${r.wPts}–${r.lPts}</span>
-      <span class="result-loser">${r.loser}</span>
+      <span class="result-winner">${m.winner}</span>
+      <span class="result-score">${m.wPts}–${m.lPts}</span>
+      <span class="result-loser">${m.loser}</span>
       <span class="result-round">${r.round}</span>
     </div>`;
   }).join('');
