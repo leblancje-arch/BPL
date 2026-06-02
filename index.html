@@ -789,7 +789,8 @@ let _cdInt=null;
 function initCountdown(schedule) {
   if(_cdInt) clearInterval(_cdInt);
   const today=new Date(); today.setHours(0,0,0,0);
-  const nextStr=schedule.map(m=>m.date).filter(Boolean).sort().find(d=>new Date(d+'T00:00:00')>=today);
+  const tomorrow=new Date(today); tomorrow.setDate(tomorrow.getDate()+1);
+  const nextStr=schedule.map(m=>m.date).filter(Boolean).sort().find(d=>new Date(d+'T00:00:00')>=tomorrow);
   if(!nextStr){
     const dl=document.getElementById('countdown-deadline');
     const cb=document.getElementById('countdown-blocks');
