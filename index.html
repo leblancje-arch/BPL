@@ -661,9 +661,9 @@ function openPlayerPage(name) {
         const fmt=new Date(m.date+'T00:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
         return `<div class="result-card">
           <span class="result-date">${fmt}</span>
-          <span class="result-winner">${isWin?name:opp}</span>
-          <span class="result-score">${isWin?m.wPts:m.lPts}–${isWin?m.lPts:m.wPts}</span>
-          <span class="result-loser">${isWin?opp:name}</span>
+          <span class="result-winner">${m.winner}</span>
+          <span class="result-score">${m.wPts}–${m.lPts}</span>
+          <span class="result-loser">${m.loser}</span>
           <span class="friendly-tag">Friendly</span>
         </div>`;
       }).join('');
