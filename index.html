@@ -387,7 +387,8 @@ let _results=[], _schedule=[], _friendlies=[];
 
 // ── ELO ──────────────────────────────────────────────────────────────────────
 function marginKeff(wPts, lPts) {
-  const w=parseInt(wPts)||7, l=parseInt(lPts)||0;
+  const w=parseInt(wPts)||0, l=parseInt(lPts)||0;
+  if(w===l) return 0; // tied game — no ELO change
   const margin=(w-l)/(w+l);
   return CONFIG.K*(1+margin);
 }
@@ -851,7 +852,7 @@ function parseSchedule(rows){
 function parseFriendlies(rows){
   return rows.filter(r=>r.Winner&&r.Loser&&r.Date&&r.Date.match(/\d{4}-\d{2}-\d{2}/)).map(r=>({
     date:r.Date, winner:r.Winner, loser:r.Loser,
-    wPts:parseInt(r['Winner Pts'])||7, lPts:parseInt(r['Loser Pts'])||0,
+    wPts:parseInt(r['Winner Pts'])||0, lPts:parseInt(r['Loser Pts'])||0,
     type:'friendly'
   }));
 }
